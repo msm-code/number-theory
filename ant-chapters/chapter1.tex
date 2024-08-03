@@ -374,34 +374,164 @@ Follows from Lemma~\ref{iterated-closures} applied to $A=B=C$.\qedhere
 \end{proof}
 
 \section{Norms and Traces}
-Let $B$ be a free $A$-module of rank $n$. Then any element $\be\in B$ defines an $A$-linear map $m_{\be}$ (or $[\be]$), multiplication by $\be$. It is helpful to think of $\be$ as a linear map because then we can apply results from linear algebra.
+Linear algebra is very powerful, so it would be nice to connect it somehow to the things we just defined. In order to to this, we may consider linear transformations.
+Let $B$ be a free $A$-module of rank $n$. Then any element $\be\in B$ defines an $A$-linear map $m_{\be}$ (or $[\be]$) of multiplication by $\be$. It is helpful to think of $\be$ as a linear map because then we can apply results from linear algebra.
+
 \begin{df}\llabel{trace-det-char}
 The trace, determinant, and characteristic polynomial of $m_{\be}$ are called the {\textbf{trace}}, {\textbf{norm}}, and {\textbf{characteristic polynomial}} of $\be$.
+We denote them as $\tr(\be)$, $\nm(\be)$ and $\chr(\be)$ respectively.
 \end{df}
-These are computed by choosing any basis of $e_1,\ldots, e_n$ for $B$ over $A$, and then computing the action of $\be$ on this basis.
+
+\noindent These are computed by choosing any basis of $e_1,\ldots, e_n$ for $B$ over $A$, and then computing the action of $\be$ on this basis.
+In our case, we are particularly interested in a situation where $K$ and $L$ are fields, and $L$ is a finite extension $K$..
+Since any field extension is a vector space of the base field, it is in particular a free $K$-module. The dimension of this vector space is the degree of the field extension, denoted by $[L:K]$.
+So for every element $\be \in L/K$ we define $\tr_{L/K}(\be)$, $\nm_{L/K}(\be)$ and $\chr_{L/K}(\be)$ as above.
+The subscripts are an important formality, because (as we'll see soon and note in Remark~\ref{norm-depends-on-extension}), values of norm depend on the choice of particular $L$ and $K$.
+
+\begin{ex}
+For a concrete example, pick $L = \Q(\sqrt{2})$, which is a $\Q$-module of rank 2, and let $\be = a + b\sqrt{2}$. Since $m_\be$ is a linear map $x \mapsto \be x$, we see that
+\[ (a + b\sqrt{2})(x + y\sqrt{2}) = (ax + 2yb) + (bx + ay)\sqrt{2} \]
+
+So we can represent this map as a matrix (with a basis $1, \sqrt{2}$):
+
+\[
+m_\be =
+\begin{bmatrix}
+a & 2b \\
+b & a
+\end{bmatrix}
+\]
+
+This lets us compute
+
+\[
+\det{m_\be} = a^2 - 2b^2
+\]
+\[
+\tr(m_\be) = 2a
+\]
+\[
+\chr(m_\be) = t^2 - 2at + a^2 - 2b^2
+\]
+
+Notice that the constant $2$ in our derivations comes from $sqrt{2}$ in $\Q(\sqrt{2})$. Clearly norm and trace changes if we consider other fields.
+\end{ex}
+
+\begin{ex}
+Let's be even more concrete. Let $L = \Q(\sqrt{2})$ and $\be = 2+3\sqrt{2}$. Using derivations above:
+\begin{itemize}
+\item $\nm(\be) = 2^2 - 2 \cdot 3^2 = -14$
+\item $\tr(\be) = 2 \cdot 2 = 4$
+\item $\chr(\be) = t^2 - 2 \cdot 2t + 2^2 - 2 \cdot 3^2 = t^2 - 4t - 14$
+\end{itemize}
+\end{ex}
+
 \begin{pr}[Elementary properties]\llabel{nm-elem-pr}
-The following hold ($a\in A; \be,\be'\in B$):
+The following properties of trace and norm hold generally ($a\in A$, $\be,\be'\in B$, $n$ a rank of $A$-module):
 \begin{enumerate}
+\item $\nm(\be\be')=\nm(\be)\cdot \nm (\be')$
+\item $\nm(a)=a^n$
 \item $\tr(\be+\be')=\tr(\be)+\tr(\be')$
 \item $\tr(a\be)=a\tr(\be)$
 \item $\tr(a)=na$
-\item $\nm(\be\be')=\nm(\be)\cdot \nm (\be')$
-\item $\nm(a)=a^n$
+\item $\chr(a)$ is always of the form $t^n - \tr(a) t^{n-1} + \cdots + (-1)^n \det(a)$. In particular, norm and trace are among its coefficients.
+\end{enumerate}
+These are elementary results from linear algebra, and we won't prove them here.
+\end{pr}
+
+It turns out that norms and traces are deeply connected to field extensions. We'll dedicate the rest of this section
+to deducing and proving their algebraic properties.
+
+\begin{pr}[Relationship with roots of minimal polynomial]\llabel{ntr-min-roots}
+Suppose $L/K$ is a degree $n$ finite field extension, and $\be\in L$.
+If $f(X)$ is the minimal polynomial of $\be$ over $K$ and $m = \deg \be$ (i.e. there are $m$ roots of $f(X)=0$ in the Galois closure of $K$, called $\be_1,\ldots, \be_m$),
+then letting $r=[L:K(\be)]=\frac nm$,
+\begin{enumerate}
+\item $\nm_{L/K}(\be)=(\be_1\cdots \be_m)^r$
+\item $\tr_{L/K}(\be)=r(\be_1+\ldots +\be_m)$
+\item $\chr_{L/K}(\be)=f(X)^r$
 \end{enumerate}
 \end{pr}
-\begin{pr}[Behavior with respect to field extensions]\llabel{ntr-fext}
-Suppose $L/K$ is a degree $n$ field extension, $M$ is a finite extension of $L$, and $\be\in L$.
-\begin{enumerate}
-\item (Relationship with roots of minimal polynomial) If $f(X)$ is the minimal polynomial of $\be$ over $K$ and $\be_1,\ldots, \be_m$ are the roots of $f(X)=0$ in a Galois closure of $K$, then letting $r=[L:K(\be)]=\frac nm$, 
-\begin{enumerate}
-\item
-$\chr_{L/K}(\be)=f(X)^r$
-\item
-$\tr_{L/K}(\be)=r(\be_1+\cdots +\be_m)$
-\item
-$\nm_{L/K}(\be)=(\be_1\cdots \be_m)^r$
-\end{enumerate}
-\item (Relationship with embeddings) Suppose $L$ is separable over $K$, $M$ is a Galois extension of $K$, and $\sigma_1,\ldots, \sigma_n$ are the set of distinct embeddings $L\to M$ fixing $K$. 
+
+This is a nice property that connects minimal polynomials of $\be$ to the properties of $m_\be$. It also lets us compute norm and trace of $\be$ basically immediately as long as we know its Galois conjugates.
+
+\begin{ex}
+Let's use $B = \Q(\sqrt{2})$ and $\be = 2+3\sqrt{2}$ as in the previous example. Minimal polynomial of $\be$ is $x^2 - 4x - 14$, and its Galois conjugates
+are $\be_1 = 2+3\sqrt{2}$ and $\be_2 = 2-3\sqrt{2}$. By a simple computation ($r = \frac{2}{2} = 1$):
+\begin{itemize}
+\item $\nm_{L/K}(\be) = \be_1 \cdot \be_2 = -14$
+\item $\tr_{L/K}(\be) = \be_1 + \be_2 = 4$
+\end{itemize}
+which agrees with our previous results.
+\end{ex}
+
+\begin{rem}[Norm depends on the field we work in]\llabel{norm-depends-on-extension}
+In general for the "average" element we expect $r$ to be 1, but it's an important factor that makes everything work. For example, $-14$ has no other Galois conjugates, so it's tempting to assume $\nm(-14) = -14$.
+But that doesn't work. Let $\be = 2+3\sqrt{2}$ and $\be' = 2-3\sqrt{2}$. Now $\nm(\be) = -14$ and $\nm(\be') = -14$. Using elementary properties, $\nm(\be\be') = \nm(\be) \nm (\be') = -14 \cdot -14 = 196$. But $\be\be' = (2-3\sqrt{2})(2+3\sqrt{2}) = -14$.
+That's why $\nm(-14) = (-14)^2 = 196$. Now it's time to prove it:
+\end{rem}
+
+\begin{proof}
+If $r=1$, i.e. $K[\be]=L$, then by the Cayley-Hamilton Theorem, $f(m_{\be}) = \chr_{L/K}(m_\be) = 0$. Since $f(X)$ is irreducible, $f(X)\mid \chr_{L/K}(\be)$. However, these are monic polynomials of the same degree so they are equal. 
+
+In the general case, take a basis $x_i$ of $K[\be]$ over $K$ and a basis $y_j$ of $L$ over $K[\be]$. Then $x_iy_j$ form a basis of $L$ over $K$, and the matrix of $m_{\be}$ with respect to this basis is $n$ copies of $A$. This proves $\chr_{L/K}(\be)=f(X)^r$.
+
+The rest of the argument comes from linear algebra. The roots of the characteristic polynomial of a linear transformation are its eigenvalues. But in this case, roots of $f(X)$ are precisely the Galois conjugates $\be_1, \cdots, \be_m$.
+This, combined with the knowledge that the norm is a product of eigenvalues and trace is a sum of eigenvalues completes the proof. 
+%Alternatively, consider the action of $\be$ on its conjugates.
+\end{proof}
+
+The second proposition is related to the integrality of trace and norm and follows directly from our previous results:
+
+\begin{pr}[Integrality]\llabel{ntr-integrality}
+%Let $A$ be an integral domain with fraction field $K$, let $L$ be a finite %separable (not nec.)
+%extension of $K$, and $B$ the integral closure of $A$ in $L$.
+Let $A$ be an integral domain, $K$ its field of fractions, $L$ a finite extension of $K$, and $B$ the integral closure of $A$ in $L$.
+For every $\be\in B$ the coefficients of $\chr_{L/K}(\be)$, and hence $\tr_{L/K}(\be)$ and $\nm_{L/K}(\be)$, are integral over $A$. In particular, if $A$ is integrally closed in $L$ then they are in $A$.
+\end{pr}
+\begin{proof}
+$\be$ is clearly integral over $A$, since $\be \in B$ (the integral closure of $A$ in $L$). By Proposition~\ref{integral-min-poly-weak} this implies that the coefficients of minimal polynomial of $\be$ over K are integral over $A$. Hence the result follows from Proposition~\ref{ntr-min-roots}.
+For the stronger version use Proposition~\ref{integral-min-poly}.
+%Suppose $P(\be)=0$ where $P$ is monic with coefficients in $A$. 
+%The conjugates of $\be$ with respect to $K$ are all integral over $A$ since they are also zeros of $P$.
+%
+%Let $f(X)$ be the minimal polynomial. (Warning: $f(X)$ may be different from $P(X)$.) The coefficients of $f(X)$ are symmetric polynomials of the conjugates, so are integral over $A$. The conclusion follows from item 1. For the second part, note that the coefficients of $f(X)$ are (by definition) in $K$.\qedhere
+\end{proof}
+
+\noindent In particular, for any $\al \in \cO_K$ we have $\nm_{L/K}(\al) \in \Z$ and $\tr_{L/K}(\al) \in \Z$. We can prove one more theorem for rings of integers:
+
+\begin{pr}
+Let $K$ be a number field. 
+An element $\al\in \cO_K$ is a unit if and only if $\nm(\al)=\pm 1$.
+\end{pr}
+\begin{proof}
+Suppose $\al$ is a unit. Then $\al^{-1}\in \cO_K$ and
+\[
+\nm(\al)\nm(\al^{-1})=\nm(\al\al^{-1})%=\nm(1)
+=1
+\]
+so $\nm(\al)=\pm1$ (since $\al, \al^{-1} \in \Z$ by Proposition~\ref{ntr-integrality}).
+
+\noindent Conversely, suppose $\nm(\al)=\pm 1$. In this case $\al$ is a root of a polynomial of the form:
+\[
+X^n + \ldots + c_{1}X \pm 1 \in \Z[X]
+\]
+
+\noindent Substituting:
+\[
+\al^n + \ldots + c_{1}\al \pm 1 = 0
+\]
+\[
+\left(\al^{n-1} + \ldots + c_{1}\right)\al = \pm 1
+\]
+
+\noindent So $\pm\left(\al^{n-1} + \ldots + \al_1 \right) \in R$ is the inverse of $\al$.
+\end{proof}
+
+\noindent The next two propositions are closely related to Galois theory:
+
+\begin{pr}[Relationship with embeddings]\llabel{ntr-embeddings}
+Suppose $L$ is separable over $K$, $M$ is a Galois extension of $K$, and $\sigma_1,\ldots, \sigma_n$ are the set of distinct embeddings $L\to M$ fixing $K$. 
 %(which can be considered as elements of $G(M/K)/G(M/L)$).
 Then
 \begin{enumerate}
@@ -411,35 +541,41 @@ $\tr_{L/K}(\be)=\sigma_1(\be)+\cdots +\sigma_n(\be)$
 $\nm_{L/K}(\be)=\sigma_1(\be)\cdots \sigma_n(\be)$
 \end{enumerate}
 In particular, this is true when $L=M$ is a Galois extension of $K$, and we can think of the $\si_k$ as simply the elements of $G(L/K)$.
-\item (Transitivity of trace and norm) Suppose $\be\in M$ and $M/K$ is separable.\footnote{The last condition is not necessary. TODO: Find a proof of the general case.} Then
+\end{pr}
+\begin{ex}
+For example, take $K=\Q$ and $L=Q(\sqrt{2})$ as usual. There are two distinct embeddings fixing $K$:
+\begin{itemize}
+\item $\sigma_1 : a + b\sqrt{2} \mapsto a + b\sqrt{2}$
+\item $\sigma_2 : a + b\sqrt{2} \mapsto a - b\sqrt{2}$
+\end{itemize}
+Take $\be = \be = 2+3\sqrt{2}$ one last time.
+\begin{itemize}
+\item $\nm_{L/K}(\be) = \sigma_1(\be) \sigma_2(\be) = (2+3\sqrt{2})(2-3\sqrt{2}) = -14$
+\item $\tr_{L/K}(\be) = \sigma_1(\be) + \sigma_2(\be) = (2+3\sqrt{2})+(2-3\sqrt{2}) = 4$
+\end{itemize}
+\end{ex}
+\begin{proof}
+%All embeddings of $L$ reside in the Galois closure of $L$ so we may assume $M=L^{\text{gal}}$.
+%Note the $\si_k$ are restrictions of the automorphisms of $M$ fixing $K$, so we may consider them as automorphisms of $M$ fixing $K$, modded out by those fixing $L$. Then $\{\si_1,\ldots, \si_n\}=G(M/K)/G(M/L)$. Now $G(M/K)$ acts transitively on the conjugates of $\be$, say $\be=\be_1,\ldots, \be_m$, and the stabilizer of any $\be_k$ has order $\frac nm$. Thus the result follows from item 1.
+%Let $\be_1,\ldots, \be_m$ be the conjugates of $\be$. Since automorphisms of $M$ fixing $K$ operate transitively on the $\be_k$, we have $\{\si_1(\be),\ldots,\si_n(\be)\}=\{ \be_1,\ldots, \be_m\}$. Each value $\be_k$ must be attained the same number of times, i.e. $r:=\frac nm$ times (since if $\si_j$ takes $\be$ to $\be_k$, it can be written as $\si_{j'}\si_{i}$ for some fixed $j'$ and $\si_i$ taking $\be$ to itself). The result follows from item 1.
+Let $\be_1,\ldots, \be_m$ be the conjugates of $\be$. There are $m$ distinct embeddings $K(\be)\to M$; they each take $\be$ to a different $\be_k$. Each of these embeddings extend to $r:=[L:K(\be)]=\frac{n}{m}$ embeddings $L\to M$. %\footnote{If $K\subeq K'\subeq L\subeq M$ and $M$ is Galois over $K$, then each embedding $K'\to M$ fixing $K$ extends to $[L:K']$ embeddings $L\to M$ fixing $K$. Proof: Let $\pi$ be the quotient map $G(M/K)/G(M/L)\to G(M/K)/G(M/K')$. Then $\ker \pi=[L:K']$.}
+Now use Proposition~\ref{ntr-min-roots}.
+\end{proof}
+
+\begin{pr}[Transitivity of trace and norm]\llabel{ntr-transitivity}
+Take $K$, $L$ as before and suppose $M$ is a finite extension of $L$, $\be\in M$ and $M/K$ is separable.\footnote{The last condition is not necessary. TODO: Find a proof of the general case.} Then
 \begin{enumerate}
 \item
 $\tr_{M/K}(\be)=\tr_{L/K}(\tr_{M/L}(\be))$
 \item
 $\nm_{M/K}(\be)=\nm_{L/K}(\nm_{M/L}(\be))$
 \end{enumerate}
-\item (Integrality) %Let $A$ be an integral domain with fraction field $K$, let $L$ be a finite %separable (not nec.)
-%extension of $K$, and $B$ the integral closure of $A$ in $L$.
-Assume AKLB. If $\be\in B$, then the coefficients of $\chr_{L/K}(\be)$, and hence $\tr_{L/K}(\be)$ and $\nm_{L/K}(\be)$, are integral over $A$. In particular, if $A$ is integrally closed in $L$ then they are in $A$.
-\end{enumerate}
 \end{pr}
-\begin{proof}$\,$
-\begin{enumerate}
-\item If $r=1$, i.e. $K[\be]=L$, then by the Cayley-Hamilton Theorem, $f(m_{\be})=0$. Since $f(X)$ is irreducible, $f(X)\mid \chr_{L/K}(\be)$. However, these are monic polynomials of the same degree so they are equal. 
-
-In the general case, take a basis $x_i$ of $K[\be]$ over $K$ and a basis $y_j$ of $L$ over $K[\be]$. Then $x_iy_j$ form a basis of $L$ over $K$, and the matrix of $m_{\be}$ with respect to this basis is $n$ copies of $A$. This proves (a), which implies the rest of the statements.
-%
-%Alternatively, consider the action of $\be$ on its conjugates.
-\item
-%All embeddings of $L$ reside in the Galois closure of $L$ so we may assume $M=L^{\text{gal}}$.
-%Note the $\si_k$ are restrictions of the automorphisms of $M$ fixing $K$, so we may consider them as automorphisms of $M$ fixing $K$, modded out by those fixing $L$. Then $\{\si_1,\ldots, \si_n\}=G(M/K)/G(M/L)$. Now $G(M/K)$ acts transitively on the conjugates of $\be$, say $\be=\be_1,\ldots, \be_m$, and the stabilizer of any $\be_k$ has order $\frac nm$. Thus the result follows from item 1.
-%Let $\be_1,\ldots, \be_m$ be the conjugates of $\be$. Since automorphisms of $M$ fixing $K$ operate transitively on the $\be_k$, we have $\{\si_1(\be),\ldots,\si_n(\be)\}=\{ \be_1,\ldots, \be_m\}$. Each value $\be_k$ must be attained the same number of times, i.e. $r:=\frac nm$ times (since if $\si_j$ takes $\be$ to $\be_k$, it can be written as $\si_{j'}\si_{i}$ for some fixed $j'$ and $\si_i$ taking $\be$ to itself). The result follows from item 1.
-Let $\be_1,\ldots, \be_m$ be the conjugates of $\be$. There are $m$ distinct imbeddings $K(\be)\to M$; they each take $\be$ to a different $\be_k$. Each of these imbeddings extend to $r:=[L:K(\be)]=\frac{n}{m}$ imbeddings $L\to M$. %\footnote{If $K\subeq K'\subeq L\subeq M$ and $M$ is Galois over $K$, then each imbedding $K'\to M$ fixing $K$ extends to $[L:K']$ imbeddings $L\to M$ fixing $K$. Proof: Let $\pi$ be the quotient map $G(M/K)/G(M/L)\to G(M/K)/G(M/K')$. Then $\ker \pi=[L:K']$.}
-Now use item 1.
-\item Note that for any finite extensions $K\subeq L\subeq N$ with $N$ Galois, an imbedding $L\hookrightarrow N$ fixing $K$ can be extended to a $K$-automorphism on $N$, and so be considered an element of the set $G(N/K)/G(N/L)$.\footnote{Using the primitive element theorem, write $L=K(\be)$. The imbeddings $L\to N$ are those taking $\be$ to a conjugate; there are $[L:K]$ imbeddings. But we know $G(N/K)/G(N/L)=[L:K]$, so all of the imbeddings must be extendable. We also use this fact (in addition to a counting argument) in the proof of 2.}
+\begin{proof}
+Note that for any finite extensions $K\subeq L\subeq N$ with $N$ Galois, an embedding $L\hookrightarrow N$ fixing $K$ can be extended to a $K$-automorphism on $N$, and so be considered an element of the set $G(N/K)/G(N/L)$.\footnote{Using the primitive element theorem, write $L=K(\be)$. The embeddings $L\to N$ are those taking $\be$ to a conjugate; there are $[L:K]$ embeddings. But we know $G(N/K)/G(N/L)=[L:K]$, so all of the embeddings must be extendable. We also use this fact (in addition to a counting argument) in the proof of 2.}
 
 Let $N$ be a Galois extension containing $M$. 
-By item 2,
+By Proposition~\ref{ntr-embeddings},
 \begin{align*}
 \tr_{M/K}(\be)&=\sum_{\si\in G(N/K)/G(N/M)}\si(\be)\\
 \tr_{L/K}(\tr_{M/L}(\be))&=\tr_{L/K}\pa{
@@ -450,16 +586,21 @@ By item 2,
 where in the second sum we take arbitrary representatives $\tau\in G(N/K)$ and $\si\in G(N/L)$.
 These are equal because for any choice of these representatives, 
 \[\{\si\in G(N/K)/G(N/M)\}=\{\tau\si\mid \tau\in G(N/K)/G(N/L),\si\in G(N/L)/G(N/M)\}\]
-when considered in $G(N/K)/G(N/M)$ (i.e. as imbeddings $M\hookrightarrow N$ fixing $K$). 
+when considered in $G(N/K)/G(N/M)$ (i.e. as embeddings $M\hookrightarrow N$ fixing $K$). 
 The same is true of the norm.
-\item 
-The minimal polynomial of $\al$ has coefficients in $A$, by Proposition~\ref{integral-min-poly}. Hence the result follows from item 1.
-%Suppose $P(\be)=0$ where $P$ is monic with coefficients in $A$. 
-%The conjugates of $\be$ with respect to $K$ are all integral over $A$ since they are also zeros of $P$.
-%
-%Let $f(X)$ be the minimal polynomial. (Warning: $f(X)$ may be different from $P(X)$.) The coefficients of $f(X)$ are symmetric polynomials of the conjugates, so are integral over $A$. The conclusion follows from item 1. For the second part, note that the coefficients of $f(X)$ are (by definition) in $K$.\qedhere
-\end{enumerate}
 \end{proof}
+
+\begin{exr}[Check your understanding]$\,$
+\vspace{0cm}
+\begin{enumerate}
+\item Compute the norm and trace of $\be = 4-\sqrt{3}$ in $\Q(3)/\Q$.
+\item (Russian olympiad 1984). Find all integers m and n such that
+\[
+    (5 + 3\sqrt{2})^m = (3 + 5\sqrt{2})^n
+\]
+\end{enumerate}
+\end{exr}
+
 \section{Discriminant}
 \begin{df}\llabel{disc-df}
 %For $L$ a finite extension of $K$, $B(\al,\be):=\tr_{L/K}(\al \be)$ is a symmetric bilinear form on $L$ as a vector space over $K$. The \textbf{discriminant} of $\be$ is the discriminant of the bilinear form,
@@ -524,7 +665,7 @@ D(\be_1,\ldots, \be_m)=\det(\sigma_i\be_j)^2\neq 0.
 Here {\it perfect} means that the map $a\mapsto (b\mapsto (a,b))$ is an isomorphism $L\to L^*$, and similarly for $b\mapsto (a\mapsto(a,b))$. This is equivalent to saying that the bilinear form is nondegenerate. %compare to nondegenerate 
 \end{pr}
 \begin{proof} (Unfinished) 
-Use Proposition~\ref{ntr-fext}(1b), and that $\si_k,\det$ are both multiplicative. Inequality follows from independence of characters:
+Use Proposition~\ref{ntr-min-roots}(b), and that $\si_k,\det$ are both multiplicative. Inequality follows from independence of characters:
 
 Let $G$ be a group, $F$ a field. Then the homomorphisms $G\to F^{\times}$ are linearly independent. 
 %(In fact, the same is true if $F^{\times}$ is replaced by $\End(V)$ where $V$ is a finite-dimensional vector space over $F$.)?
@@ -610,7 +751,7 @@ D(1,\be,\ldots, \be^{m-1})=
 \]
 where the last statement follows by evaluating the Vandermonde determinant.
 
-For the second equality, note by Proposition~\ref{ntr-fext}(1c) that
+For the second equality, note by Proposition~\ref{ntr-min-roots}(c) that
 \begin{align*}
 \nm_{L/K}(f'(\be))=\nm_{L/K}((\be_1-\be_2)\cdots (\be_1-\be_m))&=\prod_{1\le i\le m}\prod_{1\le j\le m,\,j\ne i}
 (\be_i-\be_j)\\

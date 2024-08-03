@@ -7,7 +7,7 @@ The main theorem of this chapter is the following.
 \index{Dirichlet's unit theorem}
 \begin{thm}[Dirichlet's unit theorem]\llabel{dut}
 Let $K$ be a number field with $r$ real embeddings and $2s$ nonreal complex embeddings. Then
-the group of units in $K$ is finitely generated with rank equal to $r+s-1$.
+the group of units in $\cO_K$ is finitely generated with rank equal to $r+s-1$.
 \end{thm}
 The idea of the proof is as follows.
 \begin{enumerate}
@@ -18,25 +18,6 @@ Consider a fixed large symmetric convex compact set $T$ of $\R^{r}\times \C^s$, 
 However, since we want independent units, we look not for points in the form $L(\al)$ but rather of the form $\mathbf xL(\al)$ where $x$ has norm 1. Think of this as ``rotating" or ``twisting" the unit that we get.
 \end{enumerate}
 
-First, a basic criterion for being a unit.
-\begin{pr}
-Let $K/\Q$ be a finite extension. 
-An element $\al\in K$ is a unit if and only if $\nm(\al)=\pm 1$.
-\end{pr}
-\begin{proof}
-Suppose $\al$ is a unit. Then $\al^{-1}\in K$ and
-\[
-\nm(\al)\nm(\al^{-1})=\nm(\al\al^{-1})%=\nm(1)
-=1
-\]
-so $\nm(\al)=\pm1$.
-
-Conversely, suppose $\nm(\al)=\pm 1$. Then by Theorem~\ref{ntr-fext}, letting $\si_1=I,\ldots,\si_n$ be the distinct embeddings of $K$ to the Galois closure, we have
-\[
-\al\cdot \prod_{k=2}^n \si_k(\al)=\nm_{L/K}(\al)=\pm1.
-\]
-Hence $\al^{-1}=\pm \prod_{k=2}^n \si_k(\al)\in \sO_K$. 
-\end{proof}
 \section{Dirichlet's unit theorem}
 We now prove Dirichlet's unit theorem.
 \begin{lem}\llabel{bound-degree-norm}

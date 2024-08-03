@@ -1046,7 +1046,7 @@ In the case $\C/\R$, we can verify this directly. Otherwise, $L$ is complete wit
 Let $\pi$ be a uniformizer. For $\si\in G(L/K)$, $\si \mm=\mm$, so it must take the uniformizer to another uniformizer, $\si(\pi)=\pi'=a_1\pi+a_2\pi^2+\cdots $ with $a_1\ne 0$. Then $\si(a_j\pi^j+a_{j+1}\pi^{j+1}+\cdots)=a_j{\pi'}^j+a_{j+1}{\pi'}^{j+1}$ have the same valuation, as needed. 
 %\fixme{Add.}
 
-$\nm_{L/K}(x) = \prod_{\si\in G(L/K)}\si(x)$ by Proposition~\ref{ntr-fext}. $\si$ and multiplication are continuous, so $\nm_{L/K}$ is continuous.
+$\nm_{L/K}(x) = \prod_{\si\in G(L/K)}\si(x)$ by Proposition~\ref{ntr-embeddings}. $\si$ and multiplication are continuous, so $\nm_{L/K}$ is continuous.
 \end{proof}
 \section{Unramified extensions}
 \begin{df}
@@ -1600,7 +1600,7 @@ Keep the same notation as above. Then
 \end{enumerate}
 \end{cor}
 \begin{proof}
-Using Proposition~\ref{ntr-fext}(1) and Theorem~\ref{ext-val-irr}, we see
+Using Proposition~\ref{ntr-min-roots} and Theorem~\ref{ext-val-irr}, we see
 \begin{align*}
 \nm_{L/K}(\al)&=\prod_{\al'\text{ root of }f}\al'=\pa{\prod_{\al'\text{ root of }f_1}\al'}\cdots \pa{\prod_{\al'\text{ root of }f_n}\al'}
 =\prod_{i=1}^n \nm_{L_i/\hat K}(\al)\\
